@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="120dp"
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
-    android:paddingTop="2dp"
-    android:paddingBottom="2dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
     android:layout_gravity="center"
     tools:background="#e7e7e7e7"
     >
@@ -45,10 +45,10 @@
             android:paddingBottom="0dp"
             android:maxLines="1"
             android:textSize="@dimen/text_size_normal"
-            tools:text="PG-13"
-            android:textColor="@color/rating_overlay"
+            android:textColor="@color/rating_overlay_foreground"
+            android:background="@color/rating_overlay_background"
             android:ellipsize="end"
-            android:background="#C0070707"
+            tools:text="PG-13"
             />
 
     </RelativeLayout>
@@ -57,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/left"
+        android:layout_toEndOf="@id/left"
         android:layout_centerInParent="true"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
@@ -74,39 +75,26 @@
             />
 
         <TextView
-            android:id="@+id/publication_date"
+            android:id="@+id/byline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
+            android:maxLines="1"
             android:textSize="@dimen/text_size_normal"
-            android:paddingBottom="2dp"
-            tools:text="Sep 26"
+            tools:text="Byline"
+            android:ellipsize="end"
             />
 
-        <!--
         <TextView
-            android:id="@+id/rating"
+            android:id="@+id/publication_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:maxLines="1"
             android:textSize="@dimen/text_size_normal"
-            tools:text="Rating"
-            android:ellipsize="end"
-            />
-            -->
-
-        <TextView
-            android:id="@+id/byline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/publication_date"
-            android:maxLines="1"
-            android:textSize="@dimen/text_size_normal"
-            tools:text="Byline"
-            android:ellipsize="end"
+            android:paddingBottom="2dp"
+            tools:text="2018-09-26"
             />
 
         <TextView
@@ -115,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/byline"
             android:layout_alignParentBottom="true"
-            android:maxLines="2"
+            android:maxLines="3"
             android:textSize="@dimen/text_size_normal"
             tools:text="Summary"
             android:ellipsize="end"

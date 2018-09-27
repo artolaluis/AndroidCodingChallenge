@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -67,12 +68,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         ReviewViewHolder(View view) {
             super(view);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            title = (TextView) view.findViewById(R.id.title);
-            byline = (TextView) view.findViewById(R.id.byline);
-            summary = (TextView) view.findViewById(R.id.summary);
-            rating = (TextView) view.findViewById(R.id.rating);
-            publicationDate = (TextView) view.findViewById(R.id.publication_date);
+            thumbnail = view.findViewById(R.id.thumbnail);
+            title = view.findViewById(R.id.title);
+            byline = view.findViewById(R.id.byline);
+            summary = view.findViewById(R.id.summary);
+            rating = view.findViewById(R.id.rating);
+            publicationDate = view.findViewById(R.id.publication_date);
         }
 
         public void update(Reviews.Review review) {
@@ -87,19 +88,30 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             try {
                 if (review.headline != null) {
-                    title.setText(URLDecoder.decode(review.headline, "UTF-8"));
+                    String headline = review.headline;
+                    if (headline.startsWith("Review: ")) {
+                        headline = headline.substring(8);
+                    }
+                    title.setText(URLDecoder.decode(headline, "UTF-8"));
                 }
-                if (review.mpaaRating != null) {
+
+                if (review.mpaaRating != null && !review.mpaaRating.isEmpty()) {
                     rating.setText(URLDecoder.decode(review.mpaaRating, "UTF-8"));
+                    rating.setVisibility(View.VISIBLE);
+                } else {
+                    rating.setVisibility(View.INVISIBLE);
                 }
+
                 if (review.byline != null) {
                     byline.setText(URLDecoder.decode(review.byline, "UTF-8"));
                 }
+
                 if (review.summaryShort != null) {
                     summary.setText(URLDecoder.decode(review.summaryShort, "UTF-8"));
                 }
+
                 if (review.publicationDate != null) {
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    DateFormat formatter = SimpleDateFormat.getDateInstance();
                     String text = formatter.format(review.publicationDate);
                     publicationDate.setText(text);
                 }
