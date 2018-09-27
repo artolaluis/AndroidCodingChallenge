@@ -22,7 +22,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Reviews reviews;
 
-    public ReviewsAdapter(Reviews reviews) {
+    ReviewsAdapter(Reviews reviews) {
         this.reviews = reviews;
     }
 
@@ -77,7 +77,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             publicationDate = view.findViewById(R.id.publication_date);
         }
 
-        public void update(Reviews.Review review) {
+        void update(Reviews.Review review) {
             String thumbnailUrl = review.multimedia.source;
             if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
                 Picasso.get()
