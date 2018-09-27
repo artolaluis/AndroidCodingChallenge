@@ -21,7 +21,12 @@ public class DateDeserializer implements JsonDeserializer<Date> {
     public Date deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
             String date = element.getAsString();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter = dateFormatter;
+            if (date.length() > 10) {
+                formatter = dateTimeFormatter;
+            }
             formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             return formatter.parse(date);
         } catch (ParseException e) {
