@@ -14,8 +14,8 @@ It also supports portrait and landscape orientations. These are some screenshots
 on a Huawei Honor 5x running Android 6.0.1 API 23:
 
 ![Portrait](huawei-1-portrait-small.png)
-![Landscape](huawei-2-landscape-small.png)
 ![Pull-to-refresh](huawei-3-refresh-small.png)
+![Landscape](huawei-2-landscape-small.png)
 
 # Implementation
 
@@ -33,10 +33,10 @@ Feedback on activity and REST API errors is shown in toasts.
 
 It was built with these tools:
 
-Android Studio 3.2
-Build #AI-181.5540.7.32.5014246, built on September 17, 2018
-JRE: 1.8.0_152-release-1136-b06 x86_64
-JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
-macOS 10.12.6
+* Android Studio 3.2
+* Build #AI-181.5540.7.32.5014246, built on September 17, 2018
+* JRE: 1.8.0_152-release-1136-b06 x86_64
+* JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+* macOS 10.12.6
 
 
