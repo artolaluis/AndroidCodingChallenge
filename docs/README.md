@@ -3,19 +3,19 @@
 The app consists of a single activity with a recycler view that shows a list of reviews obtained
 from the REST API endpoint. The list:
 
-#. automatically fetches new pages of reviews as the users scrolls to provide a seamless browsing
+1. automatically fetches new pages of reviews as the users scrolls to provide a seamless browsing
    experience. When the last 5 reviews become visible, it fetches the next page based on the
    number of reviews previously fetched.
 
-#. provides support for pull-to-refresh to refresh reviews. This effectively discards all previously
+1. provides support for pull-to-refresh to refresh reviews. This effectively discards all previously
    fetched reviews and fetches the first page again to get fresh data from the server.
 
 It also supports portrait and landscape orientations. These are some screenshots of the app running
 on a Huawei Honor 5x running Android 6.0.1 API 23:
 
-[Portrait](huawei-1-portrait.png)
-[Landscape](huawei-2-landscape.png)
-[Pull-to-refresh](huawei-3-refresh.png)
+![Portrait](huawei-1-portrait.png)
+![Landscape](huawei-2-landscape.png)
+![Pull-to-refresh](huawei-3-refresh.png)
 
 # Implementation
 
