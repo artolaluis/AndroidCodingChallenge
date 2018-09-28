@@ -13,9 +13,9 @@ from the REST API endpoint. The list:
 It also supports portrait and landscape orientations. These are some screenshots of the app running
 on a Huawei Honor 5x running Android 6.0.1 API 23:
 
-![Portrait](huawei-1-portrait.png)
-![Landscape](huawei-2-landscape.png)
-![Pull-to-refresh](huawei-3-refresh.png)
+![Portrait](huawei-1-portrait-small.png)
+![Landscape](huawei-2-landscape-small.png)
+![Pull-to-refresh](huawei-3-refresh-small.png)
 
 # Implementation
 
