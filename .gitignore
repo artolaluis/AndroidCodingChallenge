@@ -9,3 +9,10 @@
 /build
 /captures
 .externalNativeBuild
+*.diff
+.digitalocean
+attic/
+.*swp
+.*swo
+jots
+
