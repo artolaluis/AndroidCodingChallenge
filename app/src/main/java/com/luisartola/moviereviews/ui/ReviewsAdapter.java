@@ -49,7 +49,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ReviewViewHolder) {
-            final Reviews.Review item = reviews.results.get(position);
+            final Reviews.Review item = reviews.getResults().get(position);
             ReviewViewHolder videoViewHolder = (ReviewViewHolder) holder;
             videoViewHolder.update(item);
         }
@@ -57,7 +57,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        return (reviews != null && reviews.results !=null) ? reviews.results.size() : 0;
+        return (reviews != null && reviews.getResults() !=null) ? reviews.getResults().size() : 0;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
          */
         void update(Reviews.Review review) {
             // Render thumbnail
-            String thumbnailUrl = review.multimedia.source;
+            String thumbnailUrl = review.getMultimedia().getSource();
             if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
                 Picasso.get()
                     .load(thumbnailUrl)
@@ -112,8 +112,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             // Display relevant information
             try {
-                if (review.headline != null) {
-                    String headline = review.headline;
+                if (review.getHeadline() != null) {
+                    String headline = review.getHeadline();
                     // We know we are displaying reviews. Remove redundant prefix for a nicer
                     // list that is easier ot read.
                     if (headline.startsWith("Review: ")) {
@@ -122,24 +122,24 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     title.setText(URLDecoder.decode(headline, "UTF-8"));
                 }
 
-                if (review.mpaaRating != null && !review.mpaaRating.isEmpty()) {
-                    rating.setText(URLDecoder.decode(review.mpaaRating, "UTF-8"));
+                if (review.getMpaaRating() != null && !review.getMpaaRating().isEmpty()) {
+                    rating.setText(URLDecoder.decode(review.getMpaaRating(), "UTF-8"));
                     rating.setVisibility(View.VISIBLE);
                 } else {
                     rating.setVisibility(View.INVISIBLE);
                 }
 
-                if (review.byline != null) {
-                    byline.setText(URLDecoder.decode(review.byline, "UTF-8"));
+                if (review.getByline() != null) {
+                    byline.setText(URLDecoder.decode(review.getByline(), "UTF-8"));
                 }
 
-                if (review.summaryShort != null) {
-                    summary.setText(URLDecoder.decode(review.summaryShort, "UTF-8"));
+                if (review.getSummaryShort() != null) {
+                    summary.setText(URLDecoder.decode(review.getSummaryShort(), "UTF-8"));
                 }
 
-                if (review.publicationDate != null) {
+                if (review.getPublicationDate() != null) {
                     DateFormat formatter = SimpleDateFormat.getDateInstance();
-                    String text = formatter.format(review.publicationDate);
+                    String text = formatter.format(review.getPublicationDate());
                     publicationDate.setText(text);
                 }
             } catch (UnsupportedEncodingException e) {

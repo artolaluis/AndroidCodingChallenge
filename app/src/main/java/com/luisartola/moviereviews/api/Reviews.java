@@ -49,19 +49,59 @@ import java.util.List;
 public class Reviews {
 
     @SerializedName("copyright")
-    public String copyright;
+    private String copyright;
 
     @SerializedName("has_more")
-    public boolean hasMore;
+    private boolean hasMore;
 
     @SerializedName("num_results")
-    public Integer count;
+    private Integer count;
 
     @SerializedName("status")
-    public String status;
+    private String status;
 
     @SerializedName("results")
-    public List<Review> results;
+    private List<Review> results;
+
+    public String getCopyright() {
+        return copyright;
+    }
+
+    public void setCopyright(String copyright) {
+        this.copyright = copyright;
+    }
+
+    public boolean hasMore() {
+        return hasMore;
+    }
+
+    public void setHasMore(boolean hasMore) {
+        this.hasMore = hasMore;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<Review> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Review> results) {
+        this.results = results;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -97,38 +137,125 @@ public class Reviews {
     public static class Review {
 
         @SerializedName("byline")
-        public String byline;
+        private String byline;
 
         @SerializedName("critics_pick")
-        public Integer criticsPick;
+        private Integer criticsPick;
 
         @SerializedName("date_updated")
-        public Date dateUpdated;
+        private Date dateUpdated;
 
         @SerializedName("display_title")
-        public String displayTitle;
+        private String displayTitle;
 
         @SerializedName("headline")
-        public String headline;
+        private String headline;
 
         @SerializedName("link")
-        public Link link;
+        private Link link;
 
         @SerializedName("mpaa_rating")
-        public String mpaaRating;
+        private String mpaaRating;
 
         @SerializedName("multimedia")
-        public Multimedia multimedia;
+        private Multimedia multimedia;
 
         @SerializedName("opening_date")
-        public Date openingDate;
+        private Date openingDate;
 
         @SerializedName("publication_date")
-        public Date publicationDate;
+        private Date publicationDate;
 
         @SerializedName("summary_short")
-        public String summaryShort;
+        private String summaryShort;
 
+        public String getByline() {
+            return byline;
+        }
+
+        public void setByline(String byline) {
+            this.byline = byline;
+        }
+
+        public Integer getCriticsPick() {
+            return criticsPick;
+        }
+
+        public void setCriticsPick(Integer criticsPick) {
+            this.criticsPick = criticsPick;
+        }
+
+        public Date getDateUpdated() {
+            return dateUpdated;
+        }
+
+        public void setDateUpdated(Date dateUpdated) {
+            this.dateUpdated = dateUpdated;
+        }
+
+        public String getDisplayTitle() {
+            return displayTitle;
+        }
+
+        public void setDisplayTitle(String displayTitle) {
+            this.displayTitle = displayTitle;
+        }
+
+        public String getHeadline() {
+            return headline;
+        }
+
+        public void setHeadline(String headline) {
+            this.headline = headline;
+        }
+
+        public Link getLink() {
+            return link;
+        }
+
+        public void setLink(Link link) {
+            this.link = link;
+        }
+
+        public String getMpaaRating() {
+            return mpaaRating;
+        }
+
+        public void setMpaaRating(String mpaaRating) {
+            this.mpaaRating = mpaaRating;
+        }
+
+        public Multimedia getMultimedia() {
+            return multimedia;
+        }
+
+        public void setMultimedia(Multimedia multimedia) {
+            this.multimedia = multimedia;
+        }
+
+        public Date getOpeningDate() {
+            return openingDate;
+        }
+
+        public void setOpeningDate(Date openingDate) {
+            this.openingDate = openingDate;
+        }
+
+        public Date getPublicationDate() {
+            return publicationDate;
+        }
+
+        public void setPublicationDate(Date publicationDate) {
+            this.publicationDate = publicationDate;
+        }
+
+        public String getSummaryShort() {
+            return summaryShort;
+        }
+
+        public void setSummaryShort(String summaryShort) {
+            this.summaryShort = summaryShort;
+        }
     }
 
     /**
@@ -137,14 +264,37 @@ public class Reviews {
     public static class Link {
 
         @SerializedName("suggested_link_text")
-        public String suggestedLinkText;
+        private String suggestedLinkText;
 
         @SerializedName("type")
-        public String type;
+        private String type;
 
         @SerializedName("url")
-        public String url;
+        private String url;
 
+        public String getSuggestedLinkText() {
+            return suggestedLinkText;
+        }
+
+        public void setSuggestedLinkText(String suggestedLinkText) {
+            this.suggestedLinkText = suggestedLinkText;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 
     /**
@@ -153,17 +303,48 @@ public class Reviews {
     public static class Multimedia {
 
         @SerializedName("src")
-        public String source;
+        private String source;
 
         @SerializedName("type")
-        public String type;
+        private String type;
 
         @SerializedName("width")
-        public Integer width;
+        private Integer width;
 
         @SerializedName("height")
-        public Integer height;
+        private Integer height;
 
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public Integer getWidth() {
+            return width;
+        }
+
+        public void setWidth(Integer width) {
+            this.width = width;
+        }
+
+        public Integer getHeight() {
+            return height;
+        }
+
+        public void setHeight(Integer height) {
+            this.height = height;
+        }
     }
 
 }

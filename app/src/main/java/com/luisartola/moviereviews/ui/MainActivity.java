@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadMoreReviews() {
         Log.d(TAG, "Loading more reviews");
-        if (reviews == null || !reviews.hasMore) {
+        if (reviews == null || !reviews.hasMore()) {
             Log.i(TAG, "No more reviews to load.");
             isLoading = false;
             return;
         }
-        fetchReviews(reviews.count);
+        fetchReviews(reviews.getCount());
     }
 
     /**
@@ -133,9 +133,9 @@ public class MainActivity extends AppCompatActivity {
                     Reviews reviews = response.body();
                     String text = new StringBuilder()
                         .append("Loaded reviews")
-                        .append(", status: ").append(reviews.status)
-                        .append(", count: ").append(reviews.count)
-                        .append(", hasMore: ").append(reviews.hasMore)
+                        .append(", status: ").append(reviews.getStatus())
+                        .append(", count: ").append(reviews.getCount())
+                        .append(", hasMore: ").append(reviews.hasMore())
                         .toString();
                     Log.i(TAG, text);
                     setReviews(reviews, offset);
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Adding page of reviews to previously loaded ones.
             this.reviews.add(reviews);
-            reviewsView.getAdapter().notifyItemRangeInserted(offset, reviews.count);
+            reviewsView.getAdapter().notifyItemRangeInserted(offset, reviews.getCount());
         }
     }
 
