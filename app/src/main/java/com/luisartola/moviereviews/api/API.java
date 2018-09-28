@@ -1,3 +1,7 @@
+/**
+ * Copyright 2018. Luis Artola. All rights reserved.
+ */
+
 package com.luisartola.moviereviews.api;
 
 import com.google.gson.Gson;
@@ -21,6 +25,12 @@ public class API {
 
     private static APIService service;
 
+    /**
+     * Returns REST API service properly initialized to handle authentication
+     * and custom field deserialization.
+     *
+     * @return {@link APIService}
+     */
     public static synchronized APIService getService() {
         if (service == null) {
             // Add query parameters, headers, etc. common to every request.

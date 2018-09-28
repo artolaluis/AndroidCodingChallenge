@@ -1,9 +1,16 @@
+/**
+ * Copyright 2018. Luis Artola. All rights reserved.
+ */
+
 package com.luisartola.moviereviews.api;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+/**
+ * REST API endpoints.
+ */
 public interface APIService {
 
     /**
@@ -19,7 +26,7 @@ public interface APIService {
      * </pre>
      *
      * Sample response:
-     * <response>
+     * <pre>
      * {
      *     "copyright": "Copyright (c) 2018 The New York Times Company. All Rights Reserved.",
      *     "has_more": true,
@@ -50,7 +57,7 @@ public interface APIService {
      *     ],
      *     "status": "OK"
      * }
-     * </response>
+     * </pre>
      */
     @GET("reviews/dvd-picks.json")
     Call<Reviews> reviews(

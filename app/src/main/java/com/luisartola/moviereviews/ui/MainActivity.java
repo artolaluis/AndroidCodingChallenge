@@ -1,3 +1,7 @@
+/**
+ * Copyright 2018. Luis Artola. All rights reserved.
+ */
+
 package com.luisartola.moviereviews.ui;
 
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +21,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Shows simple list of reviews with seamless paging on scroll and pull-to-refresh capabilities.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
@@ -36,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         reloadReviews();
     }
 
+    /**
+     * Initializes recycler view with seamless paging on scroll and pull-to-refresh capabilities.
+     */
     private void initReviewsView() {
         // Recycler view for reviews
         reviewsView = findViewById(R.id.reviews);
@@ -74,19 +84,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Load first page of reviews.
+     */
     private void reloadReviews() {
         showToast(getString(R.string.loading));
         fetchReviews(0);
     }
 
-    private void showToast(String text) {
-        if (toast != null) {
-            toast.cancel();
-        }
-        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
+    /**
+     * Load next page of reviews if available. The page offset is automatically determined by the
+     * number of reviews previously fetched.
+     */
     private void loadMoreReviews() {
         Log.d(TAG, "Loading more reviews");
         if (reviews == null || !reviews.hasMore) {
@@ -97,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         fetchReviews(reviews.count);
     }
 
+    /**
+     * Fetch page of reviews via {@link APIService}.
+     *
+     * @param offset    Starting point.
+     */
     private void fetchReviews(final int offset) {
         if (isLoading) {
             Log.i(TAG, "Already fetching reviews, skipping.");
@@ -143,6 +157,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Cache and display reviews. The list is initialized fresh when offset is zero. This is
+     * the case when the application launches or when pulling down on the list to refresh.
+     * Results are aggregated to previously fetched reviews when offset is greater than zero.
+     *
+     * @param reviews   {@link Reviews} instance with all {@link Reviews.Review} fetched.
+     * @param offset    Starting point.
+     */
     private void setReviews(final Reviews reviews, final int offset) {
         if (offset == 0) {
             // Setting first page of reviews. Initialize recycler view fresh.
@@ -157,6 +179,19 @@ public class MainActivity extends AppCompatActivity {
             this.reviews.add(reviews);
             reviewsView.getAdapter().notifyItemRangeInserted(offset, reviews.count);
         }
+    }
+
+    /**
+     * Flash short message to user.
+     *
+     * @param text  Text to display.
+     */
+    private void showToast(String text) {
+        if (toast != null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 }

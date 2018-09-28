@@ -1,3 +1,7 @@
+/**
+ * Copyright 2018. Luis Artola. All rights reserved.
+ */
+
 package com.luisartola.moviereviews.api;
 
 import com.google.gson.annotations.SerializedName;
@@ -6,9 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Contains response with reviews.
+ * Deserialized representation of response data from a review page request.
  *
- * Example:
+ * Example JSON response from REST API represented by instance of this class:
  * <pre>
  * {
  *     "copyright": "Copyright (c) 2018 The New York Times Company. All Rights Reserved.",
@@ -73,6 +77,12 @@ public class Reviews {
             && this.results.equals(other.results);
     }
 
+    /**
+     * Add results from given {@link Reviews} instance. Useful to aggregate pages of results
+     * from various review requests.
+     *
+     * @param reviews   {@link Reviews} instance.
+     */
     public void add(Reviews reviews) {
         hasMore = reviews.hasMore;
         status = reviews.status;
@@ -81,6 +91,9 @@ public class Reviews {
         count = results.size();
     }
 
+    /**
+     * Single review.
+     */
     public static class Review {
 
         @SerializedName("byline")
@@ -118,6 +131,9 @@ public class Reviews {
 
     }
 
+    /**
+     * Link to review.
+     */
     public static class Link {
 
         @SerializedName("suggested_link_text")
@@ -131,6 +147,9 @@ public class Reviews {
 
     }
 
+    /**
+     * Multimedia asset, e.g. thumbnail image.
+     */
     public static class Multimedia {
 
         @SerializedName("src")

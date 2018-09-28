@@ -1,3 +1,7 @@
+/**
+ * Copyright 2018. Luis Artola. All rights reserved.
+ */
+
 package com.luisartola.moviereviews.ui;
 
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +20,9 @@ import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+/**
+ * Adapter to recycler view rendering reviews.
+ */
 public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_REVIEW_ITEM = 0;
@@ -58,6 +65,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return VIEW_REVIEW_ITEM;
     }
 
+    /**
+     * Display an individual review showing thumbnail and relevant information like headline,
+     * byline, summary, etc.
+     */
     private class ReviewViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView thumbnail;
@@ -77,7 +88,19 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             publicationDate = view.findViewById(R.id.publication_date);
         }
 
+        /**
+         * Render review data. Each review is a card that renders:
+         * <ul>
+         *     <li>Thumbnail on the left-hand side.</li>
+         *     <li>Rating is overlaid on the upper-right hand corner of thumbnail, if available.</li>
+         *     <li>Headline, byline, publication date, and summary are displayed on the right-hand
+         *     side.</li>
+         * </ul>
+         *
+         * @param review {@link Reviews.Review} instance.
+         */
         void update(Reviews.Review review) {
+            // Render thumbnail
             String thumbnailUrl = review.multimedia.source;
             if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
                 Picasso.get()
@@ -87,9 +110,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 thumbnail.setImageResource(R.drawable.thumbnail_placeholder);
             }
 
+            // Display relevant information
             try {
                 if (review.headline != null) {
                     String headline = review.headline;
+                    // We know we are displaying reviews. Remove redundant prefix for a nicer
+                    // list that is easier ot read.
                     if (headline.startsWith("Review: ")) {
                         headline = headline.substring(8);
                     }
