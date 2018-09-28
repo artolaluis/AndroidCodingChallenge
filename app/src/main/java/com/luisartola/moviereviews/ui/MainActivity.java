@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.luisartola.moviereviews.R;
 import com.luisartola.moviereviews.api.API;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private SwipeRefreshLayout reviewsRefresher;
     private int previousLastVisibleItem;
     private boolean isLoading;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 super.onScrolled(recyclerView, dx, dy);
 
                 LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-
                 int totalItemCount = manager.getItemCount();
                 int lastVisibleItem = manager.findLastVisibleItemPosition();
+                final int ITEM_COUNT_BEFORE_END = 5;
 
                 if (lastVisibleItem > previousLastVisibleItem) {
                     previousLastVisibleItem = lastVisibleItem;
-                    if (!isLoading && totalItemCount <= (lastVisibleItem + 5)) {
+                    if (!isLoading && (lastVisibleItem + ITEM_COUNT_BEFORE_END) >= totalItemCount) {
                         // End has been reached
                         loadMoreReviews();
                     }
@@ -73,27 +75,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void reloadReviews() {
+        showToast(getString(R.string.loading));
         fetchReviews(0);
     }
 
-    private void loadMoreReviews() {
-        isLoading = true;
+    private void showToast(String text) {
+        if (toast != null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
+    private void loadMoreReviews() {
         Log.d(TAG, "Loading more reviews");
         if (reviews == null || !reviews.hasMore) {
             Log.i(TAG, "No more reviews to load.");
             isLoading = false;
             return;
         }
-
         fetchReviews(reviews.count);
     }
 
     private void fetchReviews(final int offset) {
+        if (isLoading) {
+            Log.i(TAG, "Already fetching reviews, skipping.");
+            return;
+        }
+
         isLoading = true;
-        Log.d(TAG, "Reloading reviews");
+        String text = new StringBuilder()
+            .append("Fetching reviews,")
+            .append(" offset: ").append(offset)
+            .toString();
+        Log.d(TAG, text);
+
         APIService service = API.getService();
-        // Fetch first
         Call<Reviews> call = service.reviews("by-date", offset);
         call.enqueue(new Callback<Reviews>() {
             @Override
@@ -105,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                         .append(", status: ").append(reviews.status)
                         .append(", count: ").append(reviews.count)
                         .append(", hasMore: ").append(reviews.hasMore)
-                        .append(", copyright: ").append(reviews.copyright)
                         .toString();
                     Log.i(TAG, text);
                     setReviews(reviews, offset);
@@ -118,25 +134,27 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Reviews> call, Throwable t) {
-                Log.e(TAG, "Unable to reload reviews.", t);
+                String text = getString(R.string.unable_to_load_reviews);
+                Log.e(TAG, text, t);
+                showToast(text);
                 reviewsRefresher.setRefreshing(false);
                 isLoading = false;
             }
         });
     }
 
-    private void setReviews(Reviews reviews, int offset) {
+    private void setReviews(final Reviews reviews, final int offset) {
         if (offset == 0) {
+            // Setting first page of reviews. Initialize recycler view fresh.
+            // if this was called in response to pull-to-refresh it will effectively
+            // discard all previously loaded reviews.
             this.reviews = reviews;
             ReviewsAdapter adapter = new ReviewsAdapter(this.reviews);
             reviewsView.setAdapter(adapter);
             previousLastVisibleItem = 0;
         } else {
-            this.reviews.hasMore = reviews.hasMore;
-            this.reviews.status = reviews.status;
-            this.reviews.copyright = reviews.copyright;
-            this.reviews.results.addAll(reviews.results);
-            this.reviews.count = this.reviews.results.size();
+            // Adding page of reviews to previously loaded ones.
+            this.reviews.add(reviews);
             reviewsView.getAdapter().notifyItemRangeInserted(offset, reviews.count);
         }
     }

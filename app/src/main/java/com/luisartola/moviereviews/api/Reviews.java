@@ -73,6 +73,14 @@ public class Reviews {
             && this.results.equals(other.results);
     }
 
+    public void add(Reviews reviews) {
+        hasMore = reviews.hasMore;
+        status = reviews.status;
+        copyright = reviews.copyright;
+        results.addAll(reviews.results);
+        count = results.size();
+    }
+
     public static class Review {
 
         @SerializedName("byline")
