@@ -74,6 +74,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private ImageView thumbnail;
         private TextView title;
         private TextView byline;
+        private TextView headline;
         private TextView summary;
         private TextView rating;
         private TextView publicationDate;
@@ -82,6 +83,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(view);
             thumbnail = view.findViewById(R.id.thumbnail);
             title = view.findViewById(R.id.title);
+            headline = view.findViewById(R.id.headline);
             byline = view.findViewById(R.id.byline);
             summary = view.findViewById(R.id.summary);
             rating = view.findViewById(R.id.rating);
@@ -112,14 +114,18 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             // Display relevant information
             try {
+                if (review.getDisplayTitle() != null) {
+                    title.setText(URLDecoder.decode(review.getDisplayTitle(), "UTF-8"));
+                }
+
                 if (review.getHeadline() != null) {
-                    String headline = review.getHeadline();
+                    String text = URLDecoder.decode(review.getHeadline());
                     // We know we are displaying reviews. Remove redundant prefix for a nicer
                     // list that is easier ot read.
-                    if (headline.startsWith("Review: ")) {
-                        headline = headline.substring(8);
+                    if (text.startsWith("Review: ")) {
+                        text = text.substring(8);
                     }
-                    title.setText(URLDecoder.decode(headline, "UTF-8"));
+                    headline.setText(text);
                 }
 
                 if (review.getMpaaRating() != null && !review.getMpaaRating().isEmpty()) {
